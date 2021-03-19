@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package example;
+
+import "gotag/gotag.proto";
+
+message Example {
+    string with_new_tags = 1 [(gotag.tags) = "graphql:\"withNewTags,optional\"" ];
+    string with_new_multiple = 2 [(gotag.tags) = "graphql:\"withNewTags,optional\" xml:\"multi,omitempty\"" ];
+    
+    string replace_default = 3 [(gotag.tags) = "json:\"replacePrevious\""] ; 
+
+    oneof one_of {
+        option (gotag.oneof_tags) = "graphql:\"withNewTags,optional\"";
+        string a = 5 [(gotag.tags) = "json:\"A\""];
+        int32 b_jk = 6 [(gotag.tags) = "json:\"b_Jk\""];
+    }
+}
+
+message SecondMessage {
+    string with_new_tags = 1 [(gotag.tags) = "graphql:\"withNewTags,optional\"" ];
+    string with_new_multiple = 2 [(gotag.tags) = "graphql:\"withNewTags,optional\" xml:\"multi,omitempty\"" ];
+    
+    string replace_default = 3 [(gotag.tags) = "json:\"replacePrevious\""] ; 
+}
+
+message ThirdExample {
+    message InnerExample {
+        string id = 1 [(gotag.tags) = "json:\"yes\""];
+        int32 yes = 2 [(gotag.tags) = "json:\"id\""];
+    }
+
+    InnerExample inner_example = 1 [(gotag.tags) = "json:\"inner\""];
+}
